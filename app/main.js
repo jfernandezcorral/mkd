@@ -1,9 +1,16 @@
 const {app, BrowserWindow, dialog} = require ('electron')
-const getFileFromUser = () =>{
+const fs = require('fs')
+const getFileFromUser = exports.getFileFromUser = () =>{
     dialog.showOpenDialog(
-        mainW,{
-        properties: ['openFile']},
-        console.log
+        mainW,
+        {
+            properties: ['openFile'],
+            filters: [{name: 'Markdown Files', extensions: ['md', 'markdown']}]
+        },
+        (files)=>{
+            const content = files? fs.readFileSync(files[0]).toString(): undefined
+            content && mainW.webContents.send('file-opened', files[0], content)
+        }
     )
 }
 let mainW = null
@@ -12,7 +19,7 @@ app.on('ready', ()=>{
     mainW.loadFile('./app/index.html')
     mainW.once('ready-to-show', () => {
         mainW.show();
-        getFileFromUser();
+        //getFileFromUser();
     });
     mainW.on('closed',()=>{
         mainW = null

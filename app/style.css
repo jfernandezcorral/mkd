@@ -19,12 +19,13 @@ body, input{
 }
 .controls{
     display: flex;
+    flex-shrink: 0;
 }
 .content{
     flex-grow: 1;
     display: flex;
 }
 .raw-markdown, .rendered-html{
-    flex-grow: 1;
+    overflow: auto;
     width: 50%;
 }
