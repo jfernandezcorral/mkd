@@ -2,6 +2,7 @@ const marked = require('marked')
 const path = require('path')
 const { remote, ipcRenderer } = require('electron')
 const mainProcess = remote.require('./main.js')
+const currentWindow = remote.getCurrentWindow()
 
 const markdownView = document.querySelector('#markdown')
 const htmlView = document.querySelector('#html')
