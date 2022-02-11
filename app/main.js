@@ -8,6 +8,7 @@ const getFileFromUser = exports.getFileFromUser = () =>{
             filters: [{name: 'Markdown Files', extensions: ['md', 'markdown']}]
         },
         (files)=>{
+            app.addRecentDocument(files[0])
             const content = files? fs.readFileSync(files[0]).toString(): undefined
             content && mainW.webContents.send('file-opened', files[0], content)
         }
